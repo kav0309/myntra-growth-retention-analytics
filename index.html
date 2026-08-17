@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Myntra-inspired growth funnel and retention analytics portfolio case study." />
+  <meta name="theme-color" content="#ff3f6c" />
+  <title>StylePulse — Growth Funnel & Retention Analytics</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="top-strip"></div>
+  <header class="nav-shell">
+    <nav class="nav container" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="StylePulse home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>STYLE<span>PULSE</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#funnel">Funnel</a>
+        <a href="#retention">Retention</a>
+        <a href="#value">Value</a>
+        <a href="#recommendations">Actions</a>
+        <a href="#methodology">Method</a>
+      </div>
+      <a class="nav-cta" href="https://www.kaggle.com/datasets/bytadit/transactional-ecommerce" target="_blank" rel="noreferrer">Dataset ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> Myntra-inspired portfolio case study</div>
+        <h1>From cart<br/>to <span>comeback.</span></h1>
+        <p class="hero-lede">A growth analytics teardown of a fashion e-commerce journey: funnel friction, promo-led acquisition, repeat purchase retention, cohort behavior, and the experiments worth running next.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#retention">See the key finding</a>
+          <a class="btn ghost" href="#methodology">Audit the methodology</a>
+        </div>
+        <div class="hero-note"><strong>Independent project.</strong> Not affiliated with Myntra. Uses a public Kaggle dataset and aggregated outputs only.</div>
+      </div>
+      <div class="hero-panel" aria-label="Key metrics">
+        <div class="hero-panel-head">
+          <span>Growth snapshot</span>
+          <span class="live-pill">2016–2022</span>
+        </div>
+        <div class="hero-kpis" id="heroKpis"></div>
+        <div class="hero-mini">
+          <div>
+            <span class="mini-label">D30 repeat purchase</span>
+            <strong id="d30All">—</strong>
+          </div>
+          <div class="mini-meter"><span id="d30Meter"></span></div>
+        </div>
+        <div class="decor-ring ring-a"></div><div class="decor-ring ring-b"></div>
+      </div>
+    </section>
+
+    <section id="overview" class="section container">
+      <div class="section-heading">
+        <div><div class="kicker">01 / Growth model</div><h2>AARRR, with the missing telemetry called out.</h2></div>
+        <p>Instead of forcing every pirate metric into the data, this model separates what is measured from what still needs instrumentation.</p>
+      </div>
+      <div class="aarrr-grid" id="aarrrGrid"></div>
+      <div class="signal-row">
+        <div class="signal-card"><span>Median signup → 1st purchase</span><strong id="activationLag">—</strong><small>Successful buyers only</small></div>
+        <div class="signal-card"><span>Mobile journey share</span><strong id="mobileShare">—</strong><small>Web is the remaining share</small></div>
+        <div class="signal-card"><span>Promo order share</span><strong id="promoShare">—</strong><small>Successful transactions</small></div>
+        <div class="signal-card"><span>Repeat buyers, ever</span><strong id="repeatShare">—</strong><small>Across full observation window</small></div>
+      </div>
+    </section>
+
+    <section id="funnel" class="section container">
+      <div class="section-heading">
+        <div><div class="kicker">02 / Funnel</div><h2>The checkout path is already unusually deep.</h2></div>
+        <p>This clickstream is transaction-centered, so the funnel should be read as a journey completion view—not a benchmark for Myntra or a typical storefront.</p>
+      </div>
+      <div class="two-col wide-left">
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-label">Journey funnel</span><h3>Homepage → payment success</h3></div><span class="badge">Session-level</span></div>
+          <div id="funnelChart" class="funnel"></div>
+          <div class="chart-note">Add-to-cart and booking are extremely high because the source clickstream is centered around commerce journeys.</div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-label">Behavior signals</span><h3>What happens inside a journey</h3></div></div>
+          <div id="behaviorBars" class="metric-bars"></div>
+          <div class="subtle-callout"><strong>Not strict funnel steps.</strong> Search, item-detail and promo actions can occur in different paths and orders.</div>
+        </article>
+      </div>
+      <div class="two-col">
+        <article class="panel compact">
+          <div class="panel-head"><div><span class="panel-label">Traffic source</span><h3>Mobile dominates volume</h3></div></div>
+          <div id="trafficDonut" class="donut-layout"></div>
+        </article>
+        <article class="panel compact">
+          <div class="panel-head"><div><span class="panel-label">Channel quality</span><h3>Mobile vs Web is effectively flat</h3></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Source</th><th>Sessions</th><th>Payment success</th><th>AOV</th></tr></thead><tbody id="trafficTable"></tbody></table></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="retention" class="section section-tint">
+      <div class="container">
+        <div class="section-heading">
+          <div><div class="kicker">03 / Retention</div><h2>The headline result changes when you control for cohort mix.</h2></div>
+          <p>The raw sale-vs-non-sale comparison looks dramatic. Month-standardizing the cohorts tells a much more careful story.</p>
+        </div>
+        <div class="retention-hero">
+          <article class="panel promo-compare">
+            <div class="panel-head">
+              <div><span class="panel-label">D30 second-purchase rate</span><h3>Promo-acquired vs no-promo</h3></div>
+              <div class="toggle" role="group" aria-label="Comparison type">
+                <button class="active" data-mode="raw">Raw</button><button data-mode="adjusted">Cohort-adjusted</button>
+              </div>
+            </div>
+            <div class="compare-values">
+              <div><span>No promo</span><strong id="noPromoRate">—</strong></div>
+              <div class="vs">vs</div>
+              <div><span>Promo</span><strong id="promoRate">—</strong></div>
+            </div>
+            <div class="gap-card"><span id="gapLabel">Raw gap</span><strong id="gapValue">—</strong><p id="gapText"></p></div>
+          </article>
+          <article class="insight-card hot">
+            <span class="insight-icon">↘</span>
+            <div class="kicker">The interview-worthy finding</div>
+            <h3>Don’t blame discounts before controlling for when customers were acquired.</h3>
+            <p>The naive D30 gap is <strong id="rawGapText">—</strong>. After comparing within acquisition month, it shrinks to <strong id="adjustedGapText">—</strong>. Most of the apparent penalty is cohort composition, not evidence of a causal promo effect.</p>
+          </article>
+        </div>
+
+        <div class="two-col wide-left">
+          <article class="panel">
+            <div class="panel-head"><div><span class="panel-label">Cumulative repeat purchase</span><h3>Retention curve through D90</h3></div><span class="badge">Mature cohorts only</span></div>
+            <div id="retentionChart" class="svg-chart" aria-label="Retention line chart"></div>
+          </article>
+          <article class="panel simulator">
+            <div class="panel-head"><div><span class="panel-label">Scenario model</span><h3>What if lifecycle nudges lift D30 retention?</h3></div><span class="badge warning">Not a causal forecast</span></div>
+            <div class="slider-value"><strong id="liftValue">18%</strong><span>relative lift</span></div>
+            <input id="liftSlider" type="range" min="0" max="30" value="18" step="1" aria-label="Relative D30 retention lift" />
+            <div class="sim-output">
+              <div><span>Promo D30</span><strong id="simRate">—</strong></div>
+              <div><span>Incremental repeat buyers</span><strong id="simBuyers">—</strong></div>
+              <div><span>2nd-order value opportunity</span><strong id="simValue">—</strong></div>
+            </div>
+            <p>Applies the selected relative lift to the observed promo cohort and multiplies incremental repeaters by the observed second-order AOV. Use for sizing an experiment, not claiming impact.</p>
+          </article>
+        </div>
+
+        <article class="panel heat-panel">
+          <div class="panel-head"><div><span class="panel-label">Monthly purchase retention</span><h3>2021 first-purchase cohorts</h3></div><span class="badge">M0–M6</span></div>
+          <div id="cohortHeatmap" class="heatmap-wrap"></div>
+          <div class="chart-note">Cells show the share of each first-purchase cohort that made at least one successful purchase in that calendar month. This is non-cumulative activity retention, so later months can rise or fall.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="value" class="section container">
+      <div class="section-heading">
+        <div><div class="kicker">04 / Revenue & value</div><h2>A repeat-led business with a fashion-heavy basket.</h2></div>
+        <p>Monetary values are shown in source dataset units. No exchange-rate conversion is applied.</p>
+      </div>
+      <div class="two-col wide-left">
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-label">Monthly trend</span><h3>Successful order value</h3></div><div class="toggle mini"><button class="active" data-trend="gmv">Order value</button><button data-trend="returning">Returning share</button></div></div>
+          <div id="monthlyChart" class="svg-chart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-label">Merchandise mix</span><h3>Category value contribution</h3></div></div>
+          <div id="categoryBars" class="metric-bars"></div>
+          <div class="chart-note">Based on item_price × quantity for successful orders, before promo deductions.</div>
+        </article>
+      </div>
+      <div class="two-col">
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-label">Promo cohorts</span><h3>First-purchase promo codes</h3></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Code</th><th>Buyers</th><th>D30 repeat</th><th>1st AOV</th></tr></thead><tbody id="promoTable"></tbody></table></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><span class="panel-label">Checkout reliability</span><h3>Payment success by method</h3></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Method</th><th>Transactions</th><th>Success</th></tr></thead><tbody id="paymentTable"></tbody></table></div>
+          <div class="subtle-callout">All methods cluster around ~96% success, so payment method is not the clearest growth bottleneck in this dataset.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="recommendations" class="section section-dark">
+      <div class="container">
+        <div class="section-heading light">
+          <div><div class="kicker">05 / Growth actions</div><h2>Five decisions I would take to product & CRM.</h2></div>
+          <p>Recommendations are tied to observed behavior, with causal claims reserved for experiments.</p>
+        </div>
+        <div class="actions-grid">
+          <article class="action"><span class="action-no">01</span><div><h3>Accelerate purchase #2</h3><p>For first-time promo buyers, trigger personalized category recommendations around D7–D14 and a loyalty milestone before D30. The near-term repeat rate is the clearest headroom.</p><span class="action-tag">Primary KPI: D30 repeat purchase</span></div></article>
+          <article class="action"><span class="action-no">02</span><div><h3>Don’t cut promos from the raw gap</h3><p>The 3.7 pp raw retention gap collapses to ~0.5 pp after month-standardization. Treat “promo causes churn” as a hypothesis, not a conclusion.</p><span class="action-tag">Method: randomized holdout</span></div></article>
+          <article class="action"><span class="action-no">03</span><div><h3>Build a second-purchase loyalty loop</h3><p>Long-run repeat is high, suggesting habit can form. Reward the second successful purchase rather than issuing blanket acquisition discounts.</p><span class="action-tag">Guardrail: discount cost / buyer</span></div></article>
+          <article class="action"><span class="action-no">04</span><div><h3>Instrument referral properly</h3><p>Add invite_sent, invite_opened, invite_accepted, referrer_id and referred_order events before calculating referral conversion or K-factor.</p><span class="action-tag">AARRR gap: Referral</span></div></article>
+          <article class="action"><span class="action-no">05</span><div><h3>Upgrade acquisition attribution</h3><p>“Mobile vs Web” is too coarse and performs almost identically. Add campaign, referrer, paid/organic and creative IDs so CAC can be linked to retention quality.</p><span class="action-tag">Next metric: retained CAC</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology" class="section container">
+      <div class="section-heading">
+        <div><div class="kicker">06 / Methodology</div><h2>Designed to survive an interview follow-up.</h2></div>
+        <p>Every headline metric has an explicit definition, maturity rule, and limitation.</p>
+      </div>
+      <div class="method-grid">
+        <article class="method-card"><span>Dataset</span><h3>4-table public e-commerce dataset</h3><p>Customer, product, clickstream and transaction tables. Raw data is not redistributed in this repository; only aggregated outputs are included.</p></article>
+        <article class="method-card"><span>D30 retention</span><h3>Second successful purchase by day 30</h3><p>Only customers whose first successful purchase is at least 30 days before the dataset end are included.</p></article>
+        <article class="method-card"><span>Sale cohort</span><h3>Promo on first successful purchase</h3><p>A customer is “promo-acquired” when promo_amount &gt; 0 on their first successful transaction.</p></article>
+        <article class="method-card"><span>Adjustment</span><h3>Acquisition-month standardization</h3><p>Promo and non-promo D30 rates are compared within first-purchase month, then weighted by promo cohort size.</p></article>
+        <article class="method-card"><span>Funnel caveat</span><h3>Transaction-centered clickstream</h3><p>95%+ journeys reach booking, so these rates are not representative of a normal top-of-funnel storefront.</p></article>
+        <article class="method-card"><span>Referral caveat</span><h3>Not observable</h3><p>No invite/referrer linkage exists. Referral recommendations are product hypotheses, not retrospective measured findings.</p></article>
+      </div>
+      <div class="data-quality panel">
+        <div><span class="panel-label">Data quality</span><h3>Join coverage is extremely high</h3></div>
+        <div class="quality-stats" id="qualityStats"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div><div class="brand footer-brand"><span class="brand-mark"><span></span><span></span><span></span></span><span>STYLE<span>PULSE</span></span></div><p>Growth Funnel & Retention Analytics — portfolio case study.</p></div>
+      <div class="footer-links"><a href="README.md">README</a><a href="analysis/methodology.md">Methodology</a><a href="docs/INTERVIEW_GUIDE.md">Interview guide</a><a href="https://www.kaggle.com/datasets/bytadit/transactional-ecommerce" target="_blank" rel="noreferrer">Source dataset ↗</a></div>
+    </div>
+  </footer>
+
+  <script src="assets/dashboard_data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
